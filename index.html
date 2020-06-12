@@ -1,0 +1,84 @@
+
+<!doctype html>
+<html>
+<head>
+	<title>SIR MODEL</title>
+	<meta charset="UTF-8">
+	<script src="./js/Chart.min.js"></script>
+	<script src="./js/sircalc2.js"></script>
+	<script src="./js/utils.js"></script>
+	<link rel="stylesheet" type="text/css" href="./css/app.css">
+	<style type="text/css">
+		canvas{
+			-moz-user-select: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+	</style>
+</head>
+<body>
+	<div style="width:75%;">
+		<canvas id="myChart"></canvas>
+	</div>
+	<div id="campos" style="margin-top: 20px;">
+		<div style="float:left">
+			<div class="localFont">Popula&ccedil;&atilde;o</div>
+			<input type="number" id="poptot" value="16400000" style="float:left;width:80px;margin-left:10px"></input>
+		</div>
+		<div style="float:left">
+			<div class="localFont">R0 estimado</div>
+			<input type="number" step="0.01" value="3.0" id="rzero" style="float:left;width:80px;margin-left:10px"></input>
+		</div>
+		<div style="float:left">
+			<div class="localFont">T. médio infecção</div>
+			<input type="number" step="0.01" value="21" id="illtime" style="float:left;width:80px;margin-left:10px"></input>
+		</div>
+		<div style="float:left">
+			<div class="localFont">Inicial</div>
+			<input type="number" id="i0" value="10" style="float:left;width:80px;margin-left:10px"></input>
+		</div>
+		<div style="float:left">
+			<div class="localFont">Dias</div>
+			<input type="number" id="dias" value="500" style="float:left;width:80px;margin-left:10px"></input>
+		</div>
+		<div style="float:left">
+			</br>
+			<button id="buildGraph" style="margin-left:10px" class="localFont">Execute</button>
+
+		</div>
+		<div style="float: left;">
+			</br>
+			<input type="checkbox" id="debugMode" disabled><span class="localFont">debug</span>
+		</div>
+		<div style="float: left;">
+        </br>
+        <input type="checkbox" id="derivada" disabled><span class="localFont">di/dt</span>
+	</div>
+	<div id="debug" style="width:75%;" style="margin-top: 20px;">
+		<table id="Tdebug" class="localFont"></table>
+	</div>
+	<script>
+		debugMode();
+		var config = {
+			type: 'line',
+			data: {
+				datasets: [{
+					label: 'SIR Model',
+					borderColor: 'rgb(255, 99, 132)',
+				}]
+			},	
+			options: {}
+		}
+		showDerivada();
+		document.getElementById("buildGraph").addEventListener("click", function (){
+			buildGraph ();
+		});
+
+		window.onload = function () {
+			var ctx = document.getElementById('myChart').getContext('2d');
+			window.myLine = new Chart(ctx, config);
+		}
+	</script>
+</body>
+
+</html>
